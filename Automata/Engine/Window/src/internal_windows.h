@@ -5,5 +5,6 @@ void internal_create(int width, int height, const char* title);
 void internal_destroy();
 int internal_shouldClose();
 void internal_update();
+void internal_swapBuffers();
 
 #endif

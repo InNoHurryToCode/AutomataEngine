@@ -16,3 +16,7 @@ int automataWindowShouldClose() {
 void automataWindowUpdate() {
 	internal_update();
 }
+
+void automataWindowSwapBuffers() {
+	internal_swapBuffers();
+}

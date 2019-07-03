@@ -5,5 +5,6 @@ void automataWindowCreate(int width, int height, const char* title);
 void automataWindowDestroy();
 int automataWindowShouldClose();
 void automataWindowUpdate();
+void automataWindowSwapBuffers();
 
 #endif

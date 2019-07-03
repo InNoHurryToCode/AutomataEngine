@@ -6,6 +6,7 @@ int main(int argc, char** argv) {
 
 	while (!automataWindowShouldClose()) {
 		automataWindowUpdate();
+		automataWindowSwapBuffers();
 	}
 
 	automataWindowDestroy();
