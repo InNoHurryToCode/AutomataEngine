@@ -1,22 +1,22 @@
 #include "../src/internal_windows.h";
 #include "../include/automata/window.h";
 
-void automataWindowCreate(int width, int height, const char* title) {
-	internal_create(width, height, title);
+int automataWindowCreate(int width, int height, const char* title) {
+	return internal_windowCreate(width, height, title);
 }
 
-void automataWindowDestroy() {
-	internal_destroy();
+int automataWindowDestroy() {
+	return internal_windowDestroy();
 }
 
 int automataWindowShouldClose() {
-	return internal_shouldClose();
+	return internal_windowShouldClose();
 }
 
 void automataWindowUpdate() {
-	internal_update();
+	internal_windowUpdate();
 }
 
 void automataWindowSwapBuffers() {
-	internal_swapBuffers();
+	internal_windowSwapBuffers();
 }
