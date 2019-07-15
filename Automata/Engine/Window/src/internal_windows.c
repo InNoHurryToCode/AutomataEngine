@@ -6,7 +6,7 @@
 #include "../src/internal_windows.h";
 
 static MSG msg = { 0 };
-static HWND window = NULL;
+static HWND hwnd = NULL;
 static HGLRC context = NULL;
 
 static int createContext(HWND hwnd) {
@@ -14,6 +14,7 @@ static int createContext(HWND hwnd) {
 	HGLRC tmpContext = NULL;
 	int version = 0;
 	int pixelFormat = 0;
+	
 	const PIXELFORMATDESCRIPTOR pfd = {
 		.nSize = sizeof(pfd),
 		.nVersion = 1,
@@ -25,6 +26,7 @@ static int createContext(HWND hwnd) {
 		.cDepthBits = 24,
 		.cStencilBits = 8,
 	};
+
 	const int attribs[] = {
 		WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
 		WGL_CONTEXT_MINOR_VERSION_ARB, 3,
@@ -107,22 +109,28 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 }
 
 int internal_windowCreate(int width, int height, const char* title) {
-	WNDCLASS wc = { 0 };
+	RECT rc = { 0 };
+	const WNDCLASS wc = {
+		.lpfnWndProc = WndProc,
+		.hInstance = GetModuleHandle(NULL),
+		.hbrBackground = (HBRUSH)(COLOR_BACKGROUND),
+		.lpszClassName = "automatawindow",
+	};
 
-	/* initialize window */
-	wc.lpfnWndProc = WndProc;
-	wc.hInstance = GetModuleHandle(NULL);
-	wc.hbrBackground = (HBRUSH)(COLOR_BACKGROUND);
-	wc.lpszClassName = "automatawindow";
+	/* calculate window size */
+	rc.right = width;
+	rc.top = height;
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
 
+	/* register window class */
 	if (!RegisterClass(&wc)) {
 		return EXIT_FAILURE;
 	}
 
 	/* create window */
-	window = CreateWindow(wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, width, height, HWND_DESKTOP, NULL, wc.hInstance, NULL);
+	hwnd = CreateWindow(wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, HWND_DESKTOP, NULL, wc.hInstance, NULL);
 
-	if (!window) {
+	if (!hwnd) {
 		return 0;
 	}
 
@@ -130,17 +138,13 @@ int internal_windowCreate(int width, int height, const char* title) {
 	return 1;
 }
 
-int internal_windowDestroy() {
-	if (!window) {
+void internal_windowDestroy() {
+	if (!hwnd) {
 		return 0;
 	}
 
 	/* destroy the window */
-	if (!DestroyWindow(window)) {
-		return 0;
-	}
-
-	return 1;
+	DestroyWindow(hwnd);
 }
 
 int internal_windowShouldClose() {
@@ -160,10 +164,63 @@ void internal_windowUpdate() {
 }
 
 void internal_windowSwapBuffers() {
-	if (!window) {
+	if (!hwnd || !GetDC(hwnd)) {
 		return;
 	}
 
 	/* swap buffers */
-	SwapBuffers(GetDC(window));
+	SwapBuffers(GetDC(hwnd));
+}
+
+int internal_WindowGetWidth() {
+	RECT rc = { 0 };
+
+	/* get window size */
+	if (GetClientRect(hwnd, &rc)) {
+		return rc.right - rc.left;
+	}
+	
+	return 0;
+}
+
+int internal_WindowGetHeight() {
+	RECT rc = { 0 };
+
+	/* get window size */
+	if (GetClientRect(hwnd, &rc)) {
+		return rc.bottom - rc.top;
+	}
+
+	return 0;
+}
+
+void internal_WindowSetSize(int width, int height) {	
+	RECT rc = { 0, 0, width, height };
+	
+	if (!hwnd || width < 0 || height < 0) {
+		return 0;
+	}
+
+	/* set window size */
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
+	SetWindowPos(hwnd, HWND_TOP, 0, 0, rc.right - rc.left, rc.bottom - rc.top, SWP_NOZORDER | SWP_NOMOVE);
+}
+
+void internal_WindowSetTitle(const char* title) {
+	/* set window title */
+	SetWindowText(hwnd, title);
+}
+
+void internal_WindowCenter() {
+	RECT rc = { 0 };
+	int x = 0;
+	int y = 0;
+
+	/* get center position */
+	GetWindowRect(hwnd, &rc);
+	x = (GetSystemMetrics(SM_CXSCREEN) - rc.right) / 2;
+	y = (GetSystemMetrics(SM_CYSCREEN) - rc.bottom) / 2;
+
+	/* set window to center */
+	SetWindowPos(hwnd, 0, x, y, 0, 0, SWP_NOZORDER | SWP_NOSIZE);
 }

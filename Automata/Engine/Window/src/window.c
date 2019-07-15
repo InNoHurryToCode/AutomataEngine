@@ -5,8 +5,8 @@ int automataWindowCreate(int width, int height, const char* title) {
 	return internal_windowCreate(width, height, title);
 }
 
-int automataWindowDestroy() {
-	return internal_windowDestroy();
+void automataWindowDestroy() {
+	internal_windowDestroy();
 }
 
 int automataWindowShouldClose() {
@@ -19,4 +19,24 @@ void automataWindowUpdate() {
 
 void automataWindowSwapBuffers() {
 	internal_windowSwapBuffers();
+}
+
+int automataWindowGetWidth() {
+	return internal_WindowGetWidth();
+}
+
+int automataWindowGetHeight() {
+	return internal_WindowGetHeight();
+}
+
+void automataWindowSetSize(int width, int height) {
+	internal_WindowSetSize(width, height);
+}
+
+void automataWindowSetTitle(const char* title) {
+	internal_WindowSetTitle(title);
+}
+
+void automataWindowCenter() {
+	internal_WindowCenter();
 }
