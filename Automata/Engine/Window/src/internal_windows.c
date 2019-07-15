@@ -24,7 +24,7 @@ static int createContext(HWND hwnd) {
 		.cAlphaBits = 8,
 		.iLayerType = PFD_MAIN_PLANE,
 		.cDepthBits = 24,
-		.cStencilBits = 8,
+		.cStencilBits = 8
 	};
 
 	const int attribs[] = {
@@ -114,7 +114,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 		.lpfnWndProc = WndProc,
 		.hInstance = GetModuleHandle(NULL),
 		.hbrBackground = (HBRUSH)(COLOR_BACKGROUND),
-		.lpszClassName = "automatawindow",
+		.lpszClassName = "automatawindow"
 	};
 
 	/* calculate window size */
