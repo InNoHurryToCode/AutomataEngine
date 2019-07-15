@@ -25,10 +25,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\input.c">
+    <ClCompile Include="src\internal_windows.c">
       <Filter>src\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\internal_windows.c">
+    <ClCompile Include="src\input.c">
       <Filter>src\source</Filter>
     </ClCompile>
   </ItemGroup>

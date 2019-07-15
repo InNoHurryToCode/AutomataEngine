@@ -111,10 +111,16 @@ typedef enum {
 	AUTOMATA_BUTTON_MOUSE_MIDDLE,
 	AUTOMATA_BUTTON_MOUSE_4,
 	AUTOMATA_BUTTON_MOUSE_5
-} keys;
+} AutomataKeys;
+
+typedef enum {
+	AUTOMATA_AXIS_MOUSE_X,
+	AUTOMATA_AXIS_MOUSE_Y
+} AutomataAxis;
 
 void automataInputUpdate();
-int automataInputGetKey(int key);
-int automataInputDetectKey();
+int automataInputGetAxis(AutomataAxis axis);
+int automataInputGetKey(AutomataKeys key);
+AutomataKeys automataInputDetectKey();
 
 #endif

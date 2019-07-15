@@ -5,10 +5,14 @@ void automataInputUpdate() {
 	internal_inputUpdate();
 }
 
-int automataInputGetKey(int key) {
+int automataInputGetAxis(AutomataAxis axis) {
+	return internal_inputGetAxis(axis);
+}
+
+int automataInputGetKey(AutomataKeys key) {
 	return internal_inputGetKey(key);
 }
 
-int automataInputDetectKey() {
+AutomataKeys automataInputDetectKey() {
 	return internal_inputDetectKey();
 }

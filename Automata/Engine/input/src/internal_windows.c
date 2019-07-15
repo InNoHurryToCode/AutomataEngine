@@ -3,10 +3,12 @@
 #include "../src/internal_windows.h";
 
 #define KEY_PRESSED 0x80
+#define KEYS_AMOUNT 107
+#define AXIS_AMOUNT 2
 
-static const int keysAmount = 107;
-static int keyStates[107] = { 0 };
-static const int keyCodes[107] = {
+static int axisStates[AXIS_AMOUNT] = { 0 };
+static int keyStates[KEYS_AMOUNT] = { 0 };
+static const int keyCodes[KEYS_AMOUNT] = {
 	0x41,	/* a */
 	0x42,	/* b */
 	0x43,	/* c */
@@ -118,9 +120,14 @@ static const int keyCodes[107] = {
 
 void internal_inputUpdate() {
 	int i = 0;
+	int width = 0;
+	int height = 0;
+	POINT p = { 0 };
+	RECT rc = { 0 };
+	HWND hwnd = GetActiveWindow();
 
-	/* set keys state */
-	while (i < keysAmount) {
+	/* keys state */
+	while (i < KEYS_AMOUNT) {
 		/* key pressed */
 		if (GetKeyState(keyCodes[i]) & KEY_PRESSED) {
 			keyStates[i] = 1;
@@ -130,13 +137,58 @@ void internal_inputUpdate() {
 
 		++i;
 	}
+
+	/* mouse position */
+	if (hwnd) {
+		/* get the position */
+		GetCursorPos(&p);
+		ScreenToClient(hwnd, &p);
+		
+		/* store mouse position */
+		axisStates[0] = p.x;
+		axisStates[1] = p.y;
+
+		/* get window size */
+		if (GetWindowRect(hwnd, &rc)) {
+			width = rc.right - rc.left;
+			height = rc.bottom - rc.top;
+		}
+
+		/* validate x position */
+		if (p.x < 0) {
+			axisStates[0] = 0;
+		}
+
+		if (p.x > width) {
+			axisStates[0] = width;
+		}
+
+		/* validate y position */
+		if (p.y < 0) {
+			axisStates[1] = 0;
+		}
+
+		if (p.y > height) {
+			axisStates[1] = height;
+		}
+	}
+}
+
+int internal_inputGetAxis(int axis) {
+	if (axis < 0 || axis > AXIS_AMOUNT) {
+		return 0;
+	}
+
+	/* return axis state */
+	return axisStates[axis];
 }
 
 int internal_inputGetKey(int key) {
-	if (key < 0 || key > keysAmount) {
+	if (key < 0 || key > KEYS_AMOUNT) {
 		return 0;
 	}
 	
+	/* return key state */
 	return keyStates[key];
 }
 
@@ -144,7 +196,7 @@ int internal_inputDetectKey() {
 	int i = 0;
 
 	/* detect key */
-	while (i < keysAmount) {
+	while (i < KEYS_AMOUNT) {
 		if (internal_inputGetKey(i)) {
 			return i;
 		}
@@ -153,5 +205,5 @@ int internal_inputDetectKey() {
 	}
 
 	/* no key pressed */
-	return keysAmount;
+	return KEYS_AMOUNT;
 }
