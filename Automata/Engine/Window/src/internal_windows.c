@@ -1,4 +1,4 @@
-#define WINDOWS_LEAN_AND_MEAN
+#define WINDOWS_LEAN_AND_MEAN 1
 #include <windows.h>
 #include <glad/glad.h>
 #include <gl/glext.h>
@@ -128,7 +128,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 	}
 
 	/* create window */
-	hwnd = CreateWindow(wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left, rc.bottom - rc.top, HWND_DESKTOP, NULL, wc.hInstance, NULL);
+	hwnd = CreateWindow(wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left,  rc.top - rc.bottom, HWND_DESKTOP, NULL, wc.hInstance, NULL);
 
 	if (!hwnd) {
 		return 0;

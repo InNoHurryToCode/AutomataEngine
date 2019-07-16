@@ -1,4 +1,4 @@
-#define WINDOWS_LEAN_AND_MEAN
+#define WINDOWS_LEAN_AND_MEAN 1
 #include <windows.h>
 #include "../src/internal_windows.h";
 
