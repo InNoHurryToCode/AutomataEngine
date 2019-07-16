@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../include/automata/vector3.h";
+#include "../include/automata/vector3.h"
 
 void vec3_dup(vec3 r, vec3 v) {
 	int i = 0;
@@ -51,11 +51,11 @@ float vec3_mul_inner(vec3 a, vec3 b) {
 }
 
 float vec3_len(vec3 v) {
-	return sqrtf(vec3_mul_inner(v, v));
+	return (float)sqrt((double)vec3_mul_inner(v, v));
 }
 
 void vec3_norm(vec3 r, vec3 v) {
-	float k = 1.0 / vec3_len(v);
+	float k = 1.0f / vec3_len(v);
 
 	vec3_scale(r, v, k);
 }

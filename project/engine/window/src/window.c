@@ -1,5 +1,5 @@
-#include "../src/internal_windows.h";
-#include "../include/automata/window.h";
+#include "../src/internal_windows.h"
+#include "../include/automata/window.h"
 
 int automataWindowCreate(int width, int height, const char* title) {
 	return internal_windowCreate(width, height, title);

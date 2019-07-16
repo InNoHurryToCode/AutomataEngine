@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "../include/tga/tga.h";
+#include "../include/tga/tga.h"
 
  /* OpenGL texture info */
 struct gl_texture_t
@@ -567,15 +567,10 @@ loadTGATexture(const char *filename)
 		glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
 		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
-#if 0
 		glTexImage2D(GL_TEXTURE_2D, 0, tga_tex->internalFormat,
-			tga_tex->width, tga_tex->height, 0, tga_tex->format,
-			GL_UNSIGNED_BYTE, tga_tex->texels);
-#else
-		gluBuild2DMipmaps(GL_TEXTURE_2D, tga_tex->internalFormat,
-			tga_tex->width, tga_tex->height,
-			tga_tex->format, GL_UNSIGNED_BYTE, tga_tex->texels);
-#endif
+		tga_tex->width, tga_tex->height, 0, tga_tex->format,
+		GL_UNSIGNED_BYTE, tga_tex->texels);
+		glGenerateMipmap(GL_TEXTURE_2D);
 
 		glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 

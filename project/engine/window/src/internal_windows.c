@@ -1,12 +1,14 @@
 #if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN 1
+#endif
 #include <windows.h>
 #endif
 
 #include <glad/glad.h>
 #include <gl/glext.h>
 #include <gl/wglext.h>
-#include "../src/internal_windows.h";
+#include "../src/internal_windows.h"
 
 static MSG msg = { 0 };
 static HWND hwnd = NULL;
@@ -122,7 +124,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 	/* calculate window size */
 	rc.right = width;
 	rc.top = height;
-	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
 	/* register window class */
 	if (!RegisterClass(&wc)) {
@@ -142,7 +144,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 
 void internal_windowDestroy() {
 	if (!hwnd) {
-		return 0;
+		return;
 	}
 
 	/* destroy the window */
@@ -177,7 +179,7 @@ void internal_windowSwapBuffers() {
 int internal_WindowGetWidth() {
 	RECT rc = { 0 };
 
-	/* get window size */
+	/* get window width */
 	if (GetClientRect(hwnd, &rc)) {
 		return rc.right - rc.left;
 	}
@@ -188,7 +190,7 @@ int internal_WindowGetWidth() {
 int internal_WindowGetHeight() {
 	RECT rc = { 0 };
 
-	/* get window size */
+	/* get window height */
 	if (GetClientRect(hwnd, &rc)) {
 		return rc.bottom - rc.top;
 	}
@@ -200,11 +202,11 @@ void internal_WindowSetSize(int width, int height) {
 	RECT rc = { 0, 0, width, height };
 	
 	if (!hwnd || width < 0 || height < 0) {
-		return 0;
+		return;
 	}
 
 	/* set window size */
-	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, NULL);
+	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 	SetWindowPos(hwnd, HWND_TOP, 0, 0, rc.right - rc.left, rc.bottom - rc.top, SWP_NOZORDER | SWP_NOMOVE);
 }
 

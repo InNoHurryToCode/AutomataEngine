@@ -1,8 +1,8 @@
 #ifndef AUTOMATA_MATH_MATRIX_4x4_H
 #define AUTOMATA_MATH_MATRIX_4x4_H
 
-#include "vector3.h";
-#include "vector4.h";
+#include "vector3.h"
+#include "vector4.h"
 
 typedef float mat4x4[4][4];
 

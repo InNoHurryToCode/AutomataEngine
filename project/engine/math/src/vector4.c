@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../include/automata/vector4.h";
+#include "../include/automata/vector4.h"
 
 void vec4_dup(vec4 r, vec4 v) {
 	int i = 0;
@@ -50,11 +50,11 @@ float vec4_mul_inner(vec4 a, vec4 b) {
 }
 
 float vec4_len(vec4 v) {
-	return sqrtf(vec4_mul_inner(v, v));
+	(float)sqrt((double)vec4_mul_inner(v, v));
 }
 
 void vec4_norm(vec4 r, vec4 v) {
-	float k = 1.0 / vec4_len(v);
+	float k = 1.0f / vec4_len(v);
 
 	vec4_scale(r, v, k);
 }

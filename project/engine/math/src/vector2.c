@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../include/automata/vector2.h";
+#include "../include/automata/vector2.h"
 
 void vec2_dup(vec2 r, vec2 v) {
 	int i = 0;
@@ -50,11 +50,11 @@ float vec2_mul_inner(vec2 a, vec2 b) {
 }
 
 float vec2_len(vec2 v) {
-	return sqrtf(vec2_mul_inner(v, v));
+	(float)sqrt((double)vec2_mul_inner(v, v));
 }
 
 void vec2_norm(vec2 r, vec2 v) {
-	float k = 1.0 / vec2_len(v);
+	float k = 1.0f / vec2_len(v);
 
 	vec2_scale(r, v, k);
 }

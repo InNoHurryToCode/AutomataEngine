@@ -1,5 +1,5 @@
 #include <math.h>
-#include "../include/automata/matrix4x4.h";
+#include "../include/automata/matrix4x4.h"
 
 void mat4x4_dup(mat4x4 m, mat4x4 n) {
 	int i = 0;
@@ -151,11 +151,11 @@ void mat4x4_translate(mat4x4 m, vec3 v) {
 void mat4x4_translate_in_place(mat4x4 m, vec3 r) {
 	int i = 0;
 	vec4 t = { r[0], r[1], r[2], 0 };
-	vec4 r = { 0 };
+	vec4 n = { 0 };
 
 	while (i < 4) {
-		mat4x4_row(r, m, i);
-		m[3][i] += vec4_mul_inner(r, t);
+		mat4x4_row(n, m, i);
+		m[3][i] += vec4_mul_inner(n, t);
 		++i;
 	}
 }
