@@ -18,6 +18,9 @@
     <ClCompile Include="src\vector4.c">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\matrix4x4.c">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\automata\vector2.h">
@@ -27,6 +30,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\automata\vector4.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\automata\matrix4x4.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

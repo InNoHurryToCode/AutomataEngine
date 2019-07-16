@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\matrix4x4.c" />
     <ClCompile Include="src\vector2.c" />
     <ClCompile Include="src\vector3.c" />
     <ClCompile Include="src\vector4.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\automata\matrix4x4.h" />
     <ClInclude Include="include\automata\vector2.h" />
     <ClInclude Include="include\automata\vector3.h" />
     <ClInclude Include="include\automata\vector4.h" />
