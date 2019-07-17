@@ -129,7 +129,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 
 	/* calculate window size */
 	if (width <= 0 || height <= 0) {
-		return;
+		return 0;
 	}
 
 	rc.right = width;
