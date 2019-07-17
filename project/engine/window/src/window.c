@@ -22,21 +22,21 @@ void automataWindowSwapBuffers() {
 }
 
 int automataWindowGetWidth() {
-	return internal_WindowGetWidth();
+	return internal_windowGetWidth();
 }
 
 int automataWindowGetHeight() {
-	return internal_WindowGetHeight();
+	return internal_windowGetHeight();
 }
 
 void automataWindowSetSize(int width, int height) {
-	internal_WindowSetSize(width, height);
+	internal_windowSetSize(width, height);
 }
 
 void automataWindowSetTitle(const char* title) {
-	internal_WindowSetTitle(title);
+	internal_windowSetTitle(title);
 }
 
 void automataWindowCenter() {
-	internal_WindowCenter();
+	internal_windowCenter();
 }

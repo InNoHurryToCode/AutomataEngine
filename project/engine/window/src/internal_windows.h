@@ -6,10 +6,10 @@ void internal_windowDestroy();
 int internal_windowShouldClose();
 void internal_windowUpdate();
 void internal_windowSwapBuffers();
-int internal_WindowGetWidth();
-int internal_WindowGetHeight();
-void internal_WindowSetSize(int width, int height);
-void internal_WindowSetTitle(const char* title);
-void internal_WindowCenter();
+int internal_windowGetWidth();
+int internal_windowGetHeight();
+void internal_windowSetSize(int width, int height);
+void internal_windowSetTitle(const char* title);
+void internal_windowCenter();
 
 #endif

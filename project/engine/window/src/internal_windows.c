@@ -83,6 +83,9 @@ static int createContext(HWND hwnd) {
 		return 0;
 	}
 
+	/* set viewport */
+	glViewport(0, 0, internal_windowGetWidth(), internal_windowGetHeight());
+
 	/* creating context successful */
 	return 1;
 }
@@ -105,6 +108,11 @@ static LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM l
 				DestroyWindow(hwnd);
 			}
 			break;
+
+		case WM_SIZE:
+			/* update opengl viewport */
+			glViewport(0, 0, internal_windowGetWidth(), internal_windowGetHeight());
+			break;
 	}
 
 	return DefWindowProc(hwnd, message, wParam, lParam);
@@ -120,6 +128,10 @@ int internal_windowCreate(int width, int height, const char* title) {
 	};
 
 	/* calculate window size */
+	if (width <= 0 || height <= 0) {
+		return;
+	}
+
 	rc.right = width;
 	rc.top = height;
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
@@ -163,6 +175,9 @@ void internal_windowUpdate() {
 	/* update window */
 	TranslateMessage(&msg);
 	DispatchMessage(&msg);
+
+	/* clear context */
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void internal_windowSwapBuffers() {
@@ -174,7 +189,7 @@ void internal_windowSwapBuffers() {
 	SwapBuffers(GetDC(hwnd));
 }
 
-int internal_WindowGetWidth() {
+int internal_windowGetWidth() {
 	RECT rc = { 0 };
 
 	/* get window width */
@@ -185,7 +200,7 @@ int internal_WindowGetWidth() {
 	return 0;
 }
 
-int internal_WindowGetHeight() {
+int internal_windowGetHeight() {
 	RECT rc = { 0 };
 
 	/* get window height */
@@ -196,10 +211,10 @@ int internal_WindowGetHeight() {
 	return 0;
 }
 
-void internal_WindowSetSize(int width, int height) {	
+void internal_windowSetSize(int width, int height) {	
 	RECT rc = { 0, 0, width, height };
 	
-	if (!hwnd || width < 0 || height < 0) {
+	if (!hwnd || width <= 0 || height <= 0) {
 		return;
 	}
 
@@ -208,12 +223,12 @@ void internal_WindowSetSize(int width, int height) {
 	SetWindowPos(hwnd, HWND_TOP, 0, 0, rc.right - rc.left, rc.bottom - rc.top, SWP_NOZORDER | SWP_NOMOVE);
 }
 
-void internal_WindowSetTitle(const char* title) {
+void internal_windowSetTitle(const char* title) {
 	/* set window title */
 	SetWindowText(hwnd, title);
 }
 
-void internal_WindowCenter() {
+void internal_windowCenter() {
 	RECT rc = { 0 };
 	int x = 0;
 	int y = 0;
