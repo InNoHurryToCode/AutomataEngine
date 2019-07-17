@@ -73,25 +73,25 @@
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_$(ProjectName)</TargetName>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_$(ProjectName)</TargetName>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_$(ProjectName)</TargetName>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_$(ProjectName)</TargetName>
-    <IncludePath>$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
