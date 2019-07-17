@@ -56,12 +56,28 @@ GetTextureInfo(const struct tga_header_t *header,
 	{
 		if (header->pixel_depth == 8)
 		{
-			texinfo->format = GL_RED;
+			if (atof(glGetString(GL_VERSION)) >= 3.0)
+			{
+				texinfo->format = GL_RED;
+			}
+			else
+			{
+				texinfo->format = GL_LUMINANCE;
+			}
+			
 			texinfo->internalFormat = 1;
 		}
 		else /* 16 bits */
 		{
-			texinfo->format = GL_RG;
+			if (atof(glGetString(GL_VERSION)) >= 3.0)
+			{
+				texinfo->format = GL_RG;
+			}
+			else
+			{
+				texinfo->format = GL_LUMINANCE_ALPHA;
+			}
+
 			texinfo->internalFormat = 2;
 		}
 
@@ -564,14 +580,23 @@ loadTGATexture(const char *filename)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+		if (atof(glGetString(GL_VERSION)) >= 1.4 && atof(glGetString(GL_VERSION)) < 3.0)
+		{
+			glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+		}
+
 		glGetIntegerv(GL_UNPACK_ALIGNMENT, &alignment);
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);		
+		
 		glTexImage2D(GL_TEXTURE_2D, 0, tga_tex->internalFormat,
-		tga_tex->width, tga_tex->height, 0, tga_tex->format,
-		GL_UNSIGNED_BYTE, tga_tex->texels);
-		glGenerateMipmap(GL_TEXTURE_2D);
+			tga_tex->width, tga_tex->height, 0, tga_tex->format,
+			GL_UNSIGNED_BYTE, tga_tex->texels);
 
+		if (atof(glGetString(GL_VERSION)) >= 3.0)
+		{	
+			glGenerateMipmap(GL_TEXTURE_2D);
+		}
+		
 		glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 
 		tex_id = tga_tex->id;
