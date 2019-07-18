@@ -118,9 +118,13 @@ typedef enum {
 	AUTOMATA_AXIS_MOUSE_Y
 } AutomataAxis;
 
-void automataInputUpdate();
-int automataInputGetAxis(AutomataAxis axis);
-int automataInputGetKey(AutomataKeys key);
-AutomataKeys automataInputDetectKey();
+typedef struct Input {
+	void(*update)();
+	int(*getAxis)(int axis);
+	int(*getKey)(int key);
+	int(*detectKey)();
+} Input;
+
+extern const Input input;
 
 #endif

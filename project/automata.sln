@@ -37,6 +37,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "renderers", "renderers", "{538EA333-A699-4028-99E8-B74FE44E58A4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "engine\renderers\common\common.vcxproj", "{79CBA99E-6B5C-47F0-8174-30182EFF1064}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AD6720B9-8EFC-44B0-9D91-8B40979BE904} = {AD6720B9-8EFC-44B0-9D91-8B40979BE904}
+		{F41D79F8-CBD8-46C2-A0E5-623BE63A052C} = {F41D79F8-CBD8-46C2-A0E5-623BE63A052C}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "file", "engine\file\file.vcxproj", "{AD6720B9-8EFC-44B0-9D91-8B40979BE904}"
 EndProject

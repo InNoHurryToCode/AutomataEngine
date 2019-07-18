@@ -8,4 +8,14 @@
       <UniqueIdentifier>{c7346202-f4eb-42ba-a582-92a322781faa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\automata\file.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\file.c">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

@@ -2,7 +2,7 @@
 #define INTERNAL_WINDOWS_H
 
 int internal_windowCreate(int width, int height, const char* title);
-void internal_windowDestroy();
+void internal_windowClose();
 int internal_windowShouldClose();
 void internal_windowUpdate();
 void internal_windowSwapBuffers();

@@ -3,26 +3,25 @@
 #include <automata/input.h>
 
 int main(int argc, char** argv) {
-	/* initialize automata */
-	automataWindowCreate(1280, 720, "Automata engine");
-	automataWindowCenter();
+	/* create window */
+	if (!window.init(1280, 720, "Automata engine")) {
+		return;
+	}
 
 	/* application loop */
-	while (!automataWindowShouldClose()) {
+	while (!window.shouldClose()) {
 		/* update automata */
-		automataWindowUpdate();
-		automataInputUpdate();
+		window.update();
+		input.update();
 
 		/* application update */
-		if (automataInputGetKey(AUTOMATA_KEY_ESC)) {
-			automataWindowDestroy();
+		if (input.getKey(AUTOMATA_KEY_ESC)) {
+			window.close();
 		}
 
 		/* update window buffers */
-		automataWindowSwapBuffers();
+		window.swapBuffers();
 	}
 
-	/* destroy automata */
-	automataWindowDestroy();
 	return EXIT_SUCCESS;
 }

@@ -360,9 +360,6 @@ void mat4x4_perspective(mat4x4 m, float y_fov, float aspect, float n, float f) {
 /* Adapted from Android's OpenGL Matrix.java.                        */
 /* See the OpenGL GLUT documentation for gluLookAt for a description */
 /* of the algorithm. We implement it in a straightforward way.       */
-/*                                                                   */
-/* TODO: The negation of of can be spared by swapping the order of   */
-/*       operands in the following cross products in the right way.  */
 
 void mat4x4_look_at(mat4x4 m, vec3 eye, vec3 center, vec3 up) {
 	vec3 f = { 0.0f };

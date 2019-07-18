@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <automata/file.h>
 #include "../include/automata/renderer/shader.h"
 
 #define LOG_SIZE 1024
@@ -21,7 +22,7 @@ static int internal_shaderGetCompileErrors(unsigned int shader, const char* type
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 		
 		if (!success) {
-			glGetShadersInfoLog(shader, LOG_SIZE, NULL, log);
+			glGetShaderInfoLog(shader, LOG_SIZE, NULL, log);
 			printf("ERROR: failed to compile shader of type: %s\n%s", type, log);
 			return 0;
 		}
@@ -30,33 +31,37 @@ static int internal_shaderGetCompileErrors(unsigned int shader, const char* type
 	return 1;
 }
 
-static int internal_shaderCreate(shader *self, const char* vertexShader, const char* fragmentShader) {
-	FILE* vertexFile = NULL;
-	FILE* fragmentFile = NULL;
-	const char* vertexCode = "";
-	const char* fragmentCode = "";
+static int internal_shaderCreate(Shader *self, const char* vertexShader, const char* fragmentShader) {
+	TextFile file;
 	GLuint vertex = 0;
 	GLuint fragment = 0;
 	
 	if (!self) {
-		return;
+		return 0;
 	}
 
-	/* open file here */
+	/* initialize file */
+	TextFile_ctor(&file);
 
-	/* compile vertex shader */
-	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, vertexCode, NULL);
-	glCompileShader(vertex);
+	/* load vertex shader */
+	if (file.vptr->load(&file, vertexShader)) {
+		vertex = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vertex, 1, file.text, NULL);
+		glCompileShader(vertex);
+		file.vptr->unload(&file);
+	}
 
 	if (!internal_shaderGetCompileErrors(vertex, "VERTEX")) {
 		return 0;
 	}
 
-	/* compile fragment shader */
-	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &fragmentCode, NULL);
-	glCompileShader(fragment);
+	/* load fragment shader */
+	if (file.vptr->load(&file, fragmentShader)) {
+		fragment = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fragment, 1, file.text, NULL);
+		glCompileShader(fragment);
+		file.vptr->unload(&file);
+	}
 	
 	if (!internal_shaderGetCompileErrors(fragment, "FRAGMENT")) {
 		return 0;
@@ -67,17 +72,17 @@ static int internal_shaderCreate(shader *self, const char* vertexShader, const c
 	glAttachShader(self->id, vertex);
 	glAttachShader(self->id, fragment);
 	glLinkProgram(self->id);
+
 	if (!internal_shaderGetCompileErrors(self->id, "PROGRAM")) {
 		return 0;
 	}
 
-	/* cleanup */
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
 	return 1;
 }
 
-static void internal_shaderUse(shader* self) {
+static void internal_shaderUse(Shader* self) {
 	if (!self) {
 		return;
 	}
@@ -85,7 +90,7 @@ static void internal_shaderUse(shader* self) {
 	glUseProgram(self->id);
 }
 
-static void internal_shaderSetBool(shader* self, const char* name, GLboolean value) {
+static void internal_shaderSetBool(Shader* self, const char* name, GLboolean value) {
 	if (!self) {
 		return;
 	}
@@ -93,7 +98,7 @@ static void internal_shaderSetBool(shader* self, const char* name, GLboolean val
 	glUniform1i(glGetUniformLocation(self->id, name), value);
 }
 
-static void internal_shaderSetInt(shader* self, const char* name, GLint value) {
+static void internal_shaderSetInt(Shader* self, const char* name, GLint value) {
 	if (!self) {
 		return;
 	}
@@ -101,23 +106,23 @@ static void internal_shaderSetInt(shader* self, const char* name, GLint value) {
 	glUniform1i(glGetUniformLocation(self->id, name), value);
 }
 
-static void internal_shaderSetFloat(shader* self, const char* name, GLfloat value) {
+static void internal_shaderSetFloat(Shader* self, const char* name, GLfloat value) {
 	if (!self) {
 		return;
 	}
 
-	glUniform1i(glGetUniformLocation(self->id, name), value);
+	glUniform1f(glGetUniformLocation(self->id, name), value);
 }
 
-static struct shaderVtbl shaderVtbl = {
+ static const struct ShaderVtbl shaderVtbl = {
 	internal_shaderCreate,
 	internal_shaderUse,
 	internal_shaderSetBool,
 	internal_shaderSetInt,
-	internal_shaderSetFloat
+	internal_shaderSetFloat,
 };
 
-void shader_ctor(shader* self) {
+void Shader_ctor(Shader* self) {
 	if (!self) {
 		return;
 	}

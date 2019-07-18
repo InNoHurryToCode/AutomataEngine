@@ -73,28 +73,28 @@
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_renderer_$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\glad\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\glad\include;$(SolutionDir)engine\file\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)build\output\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_renderer_$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\glad\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\glad\include;$(SolutionDir)engine\file\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)build\output\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_renderer_$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\glad\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\glad\include;$(SolutionDir)engine\file\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)build\output\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)build\output\libs\</OutDir>
     <IntDir>$(SolutionDir)build\intermediate\$(ProjectName)\</IntDir>
     <TargetName>automata_renderer_$(ProjectName)</TargetName>
-    <IncludePath>$(SolutionDir)dependencies\glad\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)dependencies\glad\include;$(SolutionDir)engine\file\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)build\output\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

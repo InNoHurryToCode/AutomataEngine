@@ -152,7 +152,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 	return 1;
 }
 
-void internal_windowDestroy() {
+void internal_windowClose() {
 	if (!hwnd) {
 		return;
 	}
