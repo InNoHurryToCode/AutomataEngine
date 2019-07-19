@@ -15,7 +15,7 @@ static int internal_shaderGetCompileErrors(unsigned int shader, const char* type
 		
 		if (!success) {
 			glGetProgramInfoLog(shader, LOG_SIZE, NULL, log);
-			printf("ERROR: failed to link program of type: %s\n%s", type, log);
+			printf("ERROR: failed to link program of type %s\n%s", type, log);
 			return 0;
 		}
 	} else {
@@ -23,7 +23,7 @@ static int internal_shaderGetCompileErrors(unsigned int shader, const char* type
 		
 		if (!success) {
 			glGetShaderInfoLog(shader, LOG_SIZE, NULL, log);
-			printf("ERROR: failed to compile shader of type: %s\n%s", type, log);
+			printf("ERROR: failed to compile shader of type %s\n%s", type, log);
 			return 0;
 		}
 	}
@@ -32,7 +32,7 @@ static int internal_shaderGetCompileErrors(unsigned int shader, const char* type
 }
 
 static int internal_shaderCreate(Shader *self, const char* vertexShader, const char* fragmentShader) {
-	TextFile file;
+	TextFile file = { NULL, 0 };
 	GLuint vertex = 0;
 	GLuint fragment = 0;
 	
@@ -47,7 +47,6 @@ static int internal_shaderCreate(Shader *self, const char* vertexShader, const c
 	if (file.vptr->load(&file, vertexShader)) {
 		vertex = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertex, 1, file.text, NULL);
-		glCompileShader(vertex);
 		file.vptr->unload(&file);
 	}
 

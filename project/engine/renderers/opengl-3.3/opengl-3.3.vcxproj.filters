@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{9c59c868-a315-45ff-905b-35e0ac9ab303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{7250f6d3-6660-4b95-976c-be280841a44d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{5f6433ab-0bac-41be-9a08-3103332f17c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data\shaders">
+      <UniqueIdentifier>{21a342d6-b9a5-4fd4-ac3d-1a32d8616a07}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

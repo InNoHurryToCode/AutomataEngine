@@ -2,6 +2,7 @@
 #define WIN32_LEAN_AND_MEAN 1
 #endif
 
+#include <stdio.h>
 #include <windows.h>
 #include <glad/glad.h>
 #include <gl/glext.h>
@@ -41,6 +42,7 @@ static int createContext(HWND hwnd) {
 	hdc = GetDC(hwnd);
 
 	if (!hdc) {
+		printf("FAILED: can't get device context\n");
 		return 0;
 	}
 
@@ -48,6 +50,7 @@ static int createContext(HWND hwnd) {
 	pixelFormat = ChoosePixelFormat(hdc, &pfd);
 
 	if (!SetPixelFormat(hdc, pixelFormat, &pfd)) {
+		printf("FAILED: can't set pixel format\n");
 		return 0;
 	}
 
@@ -55,11 +58,14 @@ static int createContext(HWND hwnd) {
 	tmpContext = wglCreateContext(hdc);
 
 	if (!tmpContext) {
+		/* todo: fallback to older opengl */
+		printf("FAILED: can't create temporary context\n");
 		return 0;
 	}
 
 	/* set test opengl context */
 	if (!wglMakeCurrent(hdc, tmpContext)) {
+		printf("FAILED: can't set temporary context to current\n");
 		return 0;
 	}
 
@@ -80,6 +86,7 @@ static int createContext(HWND hwnd) {
 
 	/* set real opengl context */
 	if (!wglMakeCurrent(hdc, context)) {
+		printf("FAILED: can't set context to current\n");
 		return 0;
 	}
 
@@ -138,6 +145,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 
 	/* register window class */
 	if (!RegisterClass(&wc)) {
+		printf("FAILED: can't register window class\n");
 		return 0;
 	}
 
@@ -145,6 +153,7 @@ int internal_windowCreate(int width, int height, const char* title) {
 	hwnd = CreateWindow(wc.lpszClassName, title, WS_OVERLAPPEDWINDOW | WS_VISIBLE, CW_USEDEFAULT, CW_USEDEFAULT, rc.right - rc.left,  rc.top - rc.bottom, HWND_DESKTOP, NULL, wc.hInstance, NULL);
 
 	if (!hwnd) {
+		printf("FAILED: can't create window\n");
 		return 0;
 	}
 
@@ -177,7 +186,7 @@ void internal_windowUpdate() {
 	DispatchMessage(&msg);
 
 	/* clear context */
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void internal_windowSwapBuffers() {

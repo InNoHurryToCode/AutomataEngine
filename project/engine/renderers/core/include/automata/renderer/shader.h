@@ -1,5 +1,5 @@
-#ifndef AUTOMATA_RENDERER_SHADER_H
-#define AUTOMATA_RENDERER_SHADER_H
+#ifndef AUTOMATA_SHADER_H
+#define AUTOMATA_SHADER_H
 
 #include <glad/glad.h>
 

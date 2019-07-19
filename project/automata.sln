@@ -36,13 +36,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glext", "dependencies\glext
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "renderers", "renderers", "{538EA333-A699-4028-99E8-B74FE44E58A4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "common", "engine\renderers\common\common.vcxproj", "{79CBA99E-6B5C-47F0-8174-30182EFF1064}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "engine\renderers\core\core.vcxproj", "{79CBA99E-6B5C-47F0-8174-30182EFF1064}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AD6720B9-8EFC-44B0-9D91-8B40979BE904} = {AD6720B9-8EFC-44B0-9D91-8B40979BE904}
 		{F41D79F8-CBD8-46C2-A0E5-623BE63A052C} = {F41D79F8-CBD8-46C2-A0E5-623BE63A052C}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "file", "engine\file\file.vcxproj", "{AD6720B9-8EFC-44B0-9D91-8B40979BE904}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "opengl-3.3", "engine\renderers\opengl-3.3\opengl-3.3.vcxproj", "{B7843635-0B0F-4998-892A-5A8BA336B34D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -124,6 +126,14 @@ Global
 		{AD6720B9-8EFC-44B0-9D91-8B40979BE904}.Release|x64.Build.0 = Release|x64
 		{AD6720B9-8EFC-44B0-9D91-8B40979BE904}.Release|x86.ActiveCfg = Release|Win32
 		{AD6720B9-8EFC-44B0-9D91-8B40979BE904}.Release|x86.Build.0 = Release|Win32
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Debug|x64.ActiveCfg = Debug|x64
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Debug|x64.Build.0 = Debug|x64
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Debug|x86.ActiveCfg = Debug|Win32
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Debug|x86.Build.0 = Debug|Win32
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Release|x64.ActiveCfg = Release|x64
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Release|x64.Build.0 = Release|x64
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Release|x86.ActiveCfg = Release|Win32
+		{B7843635-0B0F-4998-892A-5A8BA336B34D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -139,6 +149,7 @@ Global
 		{538EA333-A699-4028-99E8-B74FE44E58A4} = {B36A2CBD-9D56-4F22-89FD-6415C99484B8}
 		{79CBA99E-6B5C-47F0-8174-30182EFF1064} = {538EA333-A699-4028-99E8-B74FE44E58A4}
 		{AD6720B9-8EFC-44B0-9D91-8B40979BE904} = {B36A2CBD-9D56-4F22-89FD-6415C99484B8}
+		{B7843635-0B0F-4998-892A-5A8BA336B34D} = {538EA333-A699-4028-99E8-B74FE44E58A4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DD71E743-9FF8-4288-B208-0486B5B24EAE}

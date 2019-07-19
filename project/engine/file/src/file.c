@@ -30,6 +30,7 @@ static int internal_load(TextFile* self, const char* filepath) {
 	file = fopen(filepath, "rb");
 
 	if (!file) {
+		printf("ERROR: file %s doesn't exist\n", filepath);
 		return 0;
 	}
 
@@ -37,6 +38,7 @@ static int internal_load(TextFile* self, const char* filepath) {
 	size = internal_getFileSize(file);
 
 	if (size == 0) {
+		printf("ERROR: failed to get file size of %s\n", filepath);
 		return 0;
 	}
 
@@ -44,6 +46,7 @@ static int internal_load(TextFile* self, const char* filepath) {
 	text = malloc(size);
 
 	if (!text) {
+		printf("ERROR: failed to allocate memory for %s\n", filepath);
 		return 0;
 	}
 
