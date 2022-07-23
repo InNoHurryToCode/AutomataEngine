@@ -132,12 +132,7 @@ void internal_inputUpdate() {
 	/* keys state */
 	while (i < KEYS_AMOUNT) {
 		/* key pressed */
-		if (GetKeyState(keyCodes[i]) & KEY_PRESSED) {
-			keyStates[i] = 1;
-		} else {
-			keyStates[i] = 0;
-		}
-
+		keyStates[i] = (GetKeyState(keyCodes[i]) & KEY_PRESSED);
 		++i;
 	}
 
